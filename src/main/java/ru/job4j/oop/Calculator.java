@@ -21,19 +21,15 @@ public class Calculator {
     }
 
     public int sumAllOperation(int sum) {
-        return sum;
+        return sum(sum) + multiply(sum) + minus(sum) + divide(sum);
     }
 
     public static void main(String[] args) {
         Calculator calculator = new Calculator();
-        System.out.println("x + y = " + Calculator.sum(10));
+        System.out.println("x + y = " + Calculator.sum(5));
         System.out.println("x * a = " + calculator.multiply(5));
-        System.out.println("z - x = " + Calculator.minus(10));
-        System.out.println("b / x = " + calculator.divide(25));
-        System.out.println("Сумма всех вычислений ровна: "
-                + calculator.sumAllOperation(Calculator.sum(10)
-                + calculator.multiply(5)
-                + Calculator.minus(10)
-                + calculator.divide(25)));
+        System.out.println("z - x = " + Calculator.minus(5));
+        System.out.println("b / x = " + calculator.divide(5));
+        System.out.println("Сумма всех вычислений ровна: " + calculator.sumAllOperation(5));
     }
 }

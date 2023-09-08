@@ -26,20 +26,20 @@ public class Tracker {
                 result[size++] = item;
             }
         }
-        result = Arrays.copyOf(result, size);
-        return result;
+
+        return Arrays.copyOf(result, size);
     }
 
     public Item[] findByName(String key) {
         Item[] result = new Item[items.length];
         int count = 0;
-        for (Item item : items) {
-            if (item != null && key.equals(item.getName())) {
-                result[count++] = item;
+        for (int i = 0; i < size; i++)
+         {
+            if (key.equals(items[i].getName())) {
+                result[count++] = items[i];
             }
         }
-        result = Arrays.copyOf(result, count);
-        return result;
+        return Arrays.copyOf(result, count);
     }
 
     private int indexOf(int id) {
@@ -63,6 +63,14 @@ public class Tracker {
         }
         return true;
     }
+
+    public void delete(int id) {
+        items[indexOf(id)] = null;
+        System.arraycopy(items, indexOf(id) + 1, items, indexOf(id), size - 1);
+        items[size - 1] = null;
+        size--;
+    }
+
 }
 
 

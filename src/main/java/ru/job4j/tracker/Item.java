@@ -25,7 +25,6 @@ public class Item {
         return created;
     }
 
-
     public int getId() {
         return id;
     }

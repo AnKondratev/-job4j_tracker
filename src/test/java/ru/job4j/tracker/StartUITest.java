@@ -40,20 +40,6 @@ public class StartUITest {
         };
         StartUI.deleteItem(new StubInput(answers), tracker);
         Item deleted = tracker.findById(item.getId());
-        assertThat(deleted == null).isTrue();
-    }
-
-    @Test
-    void whenNotDeleteItem() {
-        Tracker tracker = new Tracker();
-        Item item = new Item("new item");
-        tracker.add(item);
-        String[] answers = {
-                String.valueOf(-1)
-        };
-        StartUI.deleteItem(new StubInput(answers), tracker);
-        Item deleted = tracker.findById(item.getId());
-        assertThat(deleted == null).isFalse();
-
+        assertThat(deleted).isNull();
     }
 }

@@ -7,14 +7,14 @@ public class UserStore {
                 return name;
             }
         }
-        throw new UserNotFoundException();
+        throw new UserNotFoundException("User not found");
     }
 
     public static boolean validate(User user) throws UserInvalidException {
         if (user.isValid() && user.getUsername().length() > 3) {
             return true;
         }
-        throw new UserInvalidException();
+        throw new UserInvalidException("User invalid");
     }
 
     public static void main(String[] args) {

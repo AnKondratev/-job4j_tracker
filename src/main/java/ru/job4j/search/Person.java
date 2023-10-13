@@ -1,7 +1,5 @@
 package ru.job4j.search;
 
-import java.util.StringJoiner;
-
 public class Person {
     private String name;
     private String surname;
@@ -31,8 +29,4 @@ public class Person {
         return address;
     }
 
-    @Override
-    public String toString() {
-        return name + " " + surname + " " + phone + " " + address;
-    }
 }

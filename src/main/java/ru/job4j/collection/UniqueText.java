@@ -12,8 +12,8 @@ public class UniqueText {
             check.add(word);
         }
         for (String word : text) {
-            rsl = check.contains(word);
-            if (!rsl) {
+            if (!check.contains(word)) {
+                rsl = check.contains(word);
                 break;
             }
         }

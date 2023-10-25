@@ -21,7 +21,7 @@ public class ReconstructPhrase {
             if (i % 2 == 0) {
                 firstStr.append(evenElements.pollFirst());
             } else {
-                evenElements.remove();
+                evenElements.pollFirst();
             }
         }
         return firstStr.toString();
@@ -29,9 +29,8 @@ public class ReconstructPhrase {
 
     private String getDescendingElements() {
         StringBuilder secondStr = new StringBuilder();
-        Iterator<Character> iterator = descendingElements.descendingIterator();
-        while (iterator.hasNext()) {
-            secondStr.append(iterator.next());
+        while (!descendingElements.isEmpty()) {
+            secondStr.append(descendingElements.pollLast());
         }
         return secondStr.toString();
     }

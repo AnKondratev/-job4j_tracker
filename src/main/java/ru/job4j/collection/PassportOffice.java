@@ -7,10 +7,11 @@ public class PassportOffice {
     private Map<String, Citizen> citizens = new HashMap<>();
 
     public boolean add(Citizen citizen) {
-        if (!citizens.containsKey(citizen.getPassport())) {
+        boolean rsl = !citizens.containsKey(citizen.getPassport());
+        if (rsl) {
             citizens.put(citizen.getPassport(), citizen);
         }
-        return !citizens.containsKey(citizen.getPassport());
+        return rsl;
     }
 
     public Citizen get(String passport) {

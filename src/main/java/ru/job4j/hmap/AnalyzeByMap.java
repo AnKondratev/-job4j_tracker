@@ -29,8 +29,9 @@ public class AnalyzeByMap {
     }
 
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
+        Map<String, Integer> gpaSubjectsMap = new LinkedHashMap<>();
         List<Label> gpaSubjectsList = new ArrayList<>();
-        double gpa = 0;
+        int gpa = 0;
         int numberSubjects = pupils.get(0).subjects().size();
         String nameSubject;
         for (int count = 0; count < numberSubjects; count++) {
@@ -38,8 +39,11 @@ public class AnalyzeByMap {
                 gpa += pupil.subjects().get(count).score();
             }
             nameSubject = pupils.get(count).subjects().get(count).name();
-            gpaSubjectsList.add(new Label(nameSubject, gpa / pupils.size()));
+            gpaSubjectsMap.put(nameSubject, gpa);
             gpa = 0;
+        }
+        for (Map.Entry<String, Integer> entry : gpaSubjectsMap.entrySet()) {
+            gpaSubjectsList.add(new Label(entry.getKey(), (double) entry.getValue() / pupils.size()));
         }
         return gpaSubjectsList;
     }

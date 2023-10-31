@@ -44,6 +44,7 @@ public class AnalyzeByMap {
         }
         for (Map.Entry<String, Integer> entry : gpaSubjectsMap.entrySet()) {
             gpaSubjectsList.add(new Label(entry.getKey(), (double) entry.getValue() / pupils.size()));
+
         }
         return gpaSubjectsList;
     }

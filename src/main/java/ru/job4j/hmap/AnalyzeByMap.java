@@ -31,18 +31,12 @@ public class AnalyzeByMap {
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
         Map<String, Double> gpaSubjectsMap = new LinkedHashMap<>();
         List<Label> gpaSubjectsList = new ArrayList<>();
-        double sumSubjects = 0;
-        for (int i = 0; i < pupils.size(); i++) {
-            for (Pupil student : pupils) {
-                for (Subject subject : student.subjects()) {
-                    if (pupils.get(0).subjects().get(i).name().equals(subject.name())) {
-                        sumSubjects += subject.score();
-                        gpaSubjectsMap.put(subject.name(), sumSubjects);
-                        break;
-                    }
-                }
+        double value;
+        for (Pupil student : pupils) {
+            for (Subject subject : student.subjects()) {
+                value = gpaSubjectsMap.getOrDefault(subject.name(), 0.0) + subject.score();
+                gpaSubjectsMap.put(subject.name(), value);
             }
-            sumSubjects = 0;
         }
         for (Map.Entry<String, Double> entry : gpaSubjectsMap.entrySet()) {
             gpaSubjectsList.add(new Label(entry.getKey(),
@@ -66,19 +60,20 @@ public class AnalyzeByMap {
     }
 
     public static Label bestSubject(List<Pupil> pupils) {
-        List<Label> gpaSubjectsList = new ArrayList<>();
-        double gpa = 0;
-        int numberSubjects = pupils.get(0).subjects().size();
-        String nameSubject;
-        for (int count = 0; count < numberSubjects; count++) {
-            for (Pupil pupil : pupils) {
-                gpa += pupil.subjects().get(count).score();
+        Map<String, Double> sumScoresMap = new LinkedHashMap<>();
+        List<Label> sumScoresList = new ArrayList<>();
+        double value;
+        for (Pupil student : pupils) {
+            for (Subject subject : student.subjects()) {
+                value = sumScoresMap.getOrDefault(subject.name(), 0.0) + subject.score();
+                sumScoresMap.put(subject.name(), value);
             }
-            nameSubject = pupils.get(count).subjects().get(count).name();
-            gpaSubjectsList.add(new Label(nameSubject, gpa));
-            gpa = 0;
         }
-        gpaSubjectsList.sort(Comparator.naturalOrder());
-        return gpaSubjectsList.get(gpaSubjectsList.size() - 1);
+        for (Map.Entry<String, Double> entry : sumScoresMap.entrySet()) {
+            sumScoresList.add(new Label(entry.getKey(),
+                    entry.getValue()));
+        }
+        sumScoresList.sort(Comparator.naturalOrder());
+        return sumScoresList.get(sumScoresList.size() - 1);
     }
 }

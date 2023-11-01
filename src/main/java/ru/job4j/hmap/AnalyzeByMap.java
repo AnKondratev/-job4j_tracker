@@ -29,22 +29,24 @@ public class AnalyzeByMap {
     }
 
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
-        Map<String, Integer> gpaSubjectsMap = new LinkedHashMap<>();
+        Map<String, Double> gpaSubjectsMap = new LinkedHashMap<>();
         List<Label> gpaSubjectsList = new ArrayList<>();
-        int gpa = 0;
-        int numberSubjects = pupils.get(0).subjects().size();
-        String nameSubject;
-        for (int count = 0; count < numberSubjects; count++) {
-            for (Pupil pupil : pupils) {
-                gpa += pupil.subjects().get(count).score();
+        double sumSubjects = 0;
+        for (int i = 0; i < pupils.size(); i++) {
+            for (Pupil student : pupils) {
+                for (Subject subject : student.subjects()) {
+                    if (pupils.get(0).subjects().get(i).name().equals(subject.name())) {
+                        sumSubjects += subject.score();
+                        gpaSubjectsMap.put(subject.name(), sumSubjects);
+                        break;
+                    }
+                }
             }
-            nameSubject = pupils.get(count).subjects().get(count).name();
-            gpaSubjectsMap.put(nameSubject, gpa);
-            gpa = 0;
+            sumSubjects = 0;
         }
-        for (Map.Entry<String, Integer> entry : gpaSubjectsMap.entrySet()) {
-            gpaSubjectsList.add(new Label(entry.getKey(), (double) entry.getValue() / pupils.size()));
-
+        for (Map.Entry<String, Double> entry : gpaSubjectsMap.entrySet()) {
+            gpaSubjectsList.add(new Label(entry.getKey(),
+                    entry.getValue() / pupils.size()));
         }
         return gpaSubjectsList;
     }

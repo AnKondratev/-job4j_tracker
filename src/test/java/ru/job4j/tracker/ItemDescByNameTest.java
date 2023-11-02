@@ -12,9 +12,18 @@ class ItemDescByNameTest {
 
     @Test
     void whenListSorted() {
-        List<Item> items = new ArrayList<>(List.of(new Item("Ben"), new Item("Zack"), new Item("Adam"), new Item("Deny")));
-        List<Item> expected = new ArrayList<>(List.of(new Item("Zack"), new Item("Deny"), new Item("Ben"), new Item("Adam")));
+        List<Item> items = new ArrayList<>(List.of(
+                new Item("Ben"),
+                new Item("Zack"),
+                new Item("Adam"),
+                new Item("Deny")));
+        List<Item> expected = new ArrayList<>(List.of(
+                new Item("Zack"),
+                new Item("Deny"),
+                new Item("Ben"),
+                new Item("Adam")));
         items.sort(new ItemDescByName());
-        assertThat(items.equals(expected)).isTrue();
+        assertThat(items).usingRecursiveFieldByFieldElementComparatorOnFields("name")
+                .containsExactlyElementsOf(expected);
     }
 }

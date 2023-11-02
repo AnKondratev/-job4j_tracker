@@ -9,9 +9,18 @@ class ItemAscByNameTest {
 
     @Test
     void whenListSorted() {
-        List<Item> items = new ArrayList<>(List.of(new Item("Ben"), new Item("Zack"), new Item("Adam"), new Item("Deny")));
-        List<Item> expected = new ArrayList<>(List.of(new Item("Adam"), new Item("Ben"), new Item("Deny"), new Item("Zack")));
+        List<Item> items = new ArrayList<>(List.of(
+                new Item("Ben"),
+                new Item("Zack"),
+                new Item("Adam"),
+                new Item("Deny")));
+        List<Item> expected = new ArrayList<>(List.of(
+                new Item("Adam"),
+                new Item("Ben"),
+                new Item("Deny"),
+                new Item("Zack")));
         items.sort(new ItemAscByName());
-        assertThat(items.equals(expected)).isTrue();
+        assertThat(items).usingRecursiveFieldByFieldElementComparatorOnFields("name")
+                .containsExactlyElementsOf(expected);
     }
 }

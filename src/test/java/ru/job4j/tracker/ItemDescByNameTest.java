@@ -23,7 +23,6 @@ class ItemDescByNameTest {
                 new Item("Ben"),
                 new Item("Adam")));
         items.sort(new ItemDescByName());
-        assertThat(items).usingRecursiveFieldByFieldElementComparatorOnFields("name")
-                .containsExactlyElementsOf(expected);
+        assertThat(items.equals(expected)).isTrue();
     }
 }

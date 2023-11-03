@@ -49,4 +49,20 @@ public class Item {
                 + ", created=" + created.format(FORMATTER)
                 + '}';
     }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Item item)) {
+            return false;
+        }
+        return this.name.equals(item.name);
+    }
 }

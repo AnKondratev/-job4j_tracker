@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ItemAscByNameTest {
@@ -20,7 +21,6 @@ class ItemAscByNameTest {
                 new Item("Deny"),
                 new Item("Zack")));
         items.sort(new ItemAscByName());
-        assertThat(items).usingRecursiveFieldByFieldElementComparatorOnFields("name")
-                .containsExactlyElementsOf(expected);
+        assertThat(items.equals(expected)).isTrue();
     }
 }

@@ -68,5 +68,6 @@ class JobTest {
                 new Job("Impl task", 1)
         );
         assertThat(res).isLessThan(0);
+
     }
 }

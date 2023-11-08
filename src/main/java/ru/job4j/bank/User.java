@@ -2,8 +2,23 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * Класс, представляющий пользователя банка,
+ * содержит геттеры и сеттеры для доступа к полям класса
+ * и конструктор дял создагия объекта с необходимыми данными
+ *
+ * @author ANDREY KONDRATEV
+ * @version 1.0
+ */
+
 public class User {
+    /**
+     * номер паспорта пользователя
+     */
     private String passport;
+    /**
+     * имя пользователя
+     */
     private String username;
 
     public User(String passport, String username) {
@@ -27,6 +42,10 @@ public class User {
         this.username = username;
     }
 
+    /**
+     * В классе переопределены методы equals() и hashCode()
+     * для сравнения объектов User на основе их паспортных данных.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {

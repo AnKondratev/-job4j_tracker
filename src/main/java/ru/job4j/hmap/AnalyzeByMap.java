@@ -30,13 +30,17 @@ public class AnalyzeByMap {
     }
 
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
-        Map<String, Double> gpaSubjectsMap = new LinkedHashMap<>();
-        BiFunction<Double, Double, Double> sumScoresSubject = Double::sum;
+        Map<String, Integer> gpaSubjectsMap = new LinkedHashMap<>();
+        BiFunction<Integer, Integer, Integer> sumScores = Integer::sum;
         List<Label> gpaSubjectsList = new ArrayList<>();
-        pupils.forEach(student -> student.subjects().forEach(subject ->
-                gpaSubjectsMap.merge(subject.name(), (double) subject.score(), sumScoresSubject)));
+        pupils.forEach(student ->
+                student.subjects().forEach(subject ->
+                        gpaSubjectsMap.merge(subject.name(), subject.score(), sumScores)
+                )
+        );
         gpaSubjectsMap.forEach((key, value) ->
-                gpaSubjectsList.add(new Label(key, value / pupils.size())));
+                gpaSubjectsList.add(new Label(key, (double) value / pupils.size()))
+        );
         return gpaSubjectsList;
     }
 
@@ -55,11 +59,13 @@ public class AnalyzeByMap {
     }
 
     public static Label bestSubject(List<Pupil> pupils) {
-        Map<String, Double> sumScoresMap = new LinkedHashMap<>();
+        Map<String, Integer> sumScoresMap = new LinkedHashMap<>();
         List<Label> sumScoresList = new ArrayList<>();
-        BiFunction<Double, Double, Double> sumScoresSubject = Double::sum;
-        pupils.forEach(student -> student.subjects().forEach(subject ->
-                sumScoresMap.merge(subject.name(), (double) subject.score(), sumScoresSubject)));
+        BiFunction<Integer, Integer, Integer> sumScores = Integer::sum;
+        pupils.forEach(student ->
+                student.subjects().forEach(subject ->
+                        sumScoresMap.merge(subject.name(), subject.score(), sumScores)
+                ));
         sumScoresMap.forEach((key, value) -> sumScoresList.add(new Label(key, value)));
         sumScoresList.sort(Comparator.naturalOrder());
         return sumScoresList.get(sumScoresList.size() - 1);

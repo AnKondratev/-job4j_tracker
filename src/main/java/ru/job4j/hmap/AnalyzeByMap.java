@@ -1,6 +1,7 @@
 package ru.job4j.hmap;
 
 import java.util.*;
+import java.util.function.BiFunction;
 
 public class AnalyzeByMap {
     public static double averageScore(List<Pupil> pupils) {
@@ -30,18 +31,12 @@ public class AnalyzeByMap {
 
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
         Map<String, Double> gpaSubjectsMap = new LinkedHashMap<>();
+        BiFunction<Double, Double, Double> sumScoresSubject = Double::sum;
         List<Label> gpaSubjectsList = new ArrayList<>();
-        double value;
-        for (Pupil student : pupils) {
-            for (Subject subject : student.subjects()) {
-                value = gpaSubjectsMap.getOrDefault(subject.name(), 0.0) + subject.score();
-                gpaSubjectsMap.put(subject.name(), value);
-            }
-        }
-        for (Map.Entry<String, Double> entry : gpaSubjectsMap.entrySet()) {
-            gpaSubjectsList.add(new Label(entry.getKey(),
-                    entry.getValue() / pupils.size()));
-        }
+        pupils.forEach(student -> student.subjects().forEach(subject ->
+                gpaSubjectsMap.merge(subject.name(), (double) subject.score(), sumScoresSubject)));
+        gpaSubjectsMap.forEach((key, value) ->
+                gpaSubjectsList.add(new Label(key, value / pupils.size())));
         return gpaSubjectsList;
     }
 
@@ -62,17 +57,10 @@ public class AnalyzeByMap {
     public static Label bestSubject(List<Pupil> pupils) {
         Map<String, Double> sumScoresMap = new LinkedHashMap<>();
         List<Label> sumScoresList = new ArrayList<>();
-        double value;
-        for (Pupil student : pupils) {
-            for (Subject subject : student.subjects()) {
-                value = sumScoresMap.getOrDefault(subject.name(), 0.0) + subject.score();
-                sumScoresMap.put(subject.name(), value);
-            }
-        }
-        for (Map.Entry<String, Double> entry : sumScoresMap.entrySet()) {
-            sumScoresList.add(new Label(entry.getKey(),
-                    entry.getValue()));
-        }
+        BiFunction<Double, Double, Double> sumScoresSubject = Double::sum;
+        pupils.forEach(student -> student.subjects().forEach(subject ->
+                sumScoresMap.merge(subject.name(), (double) subject.score(), sumScoresSubject)));
+        sumScoresMap.forEach((key, value) -> sumScoresList.add(new Label(key, value)));
         sumScoresList.sort(Comparator.naturalOrder());
         return sumScoresList.get(sumScoresList.size() - 1);
     }

@@ -23,9 +23,6 @@ public class College {
 
     public Optional<Subject> findBySubjectName(String accountNumber, String name) {
         Optional<Student> account = findByAccount(accountNumber);
-        if (account.isEmpty()) {
-            return Optional.empty();
-        }
         return account.flatMap(student -> students.get(student)
                 .stream()
                 .filter(s -> s.name().equals(name))

@@ -1,6 +1,7 @@
 package ru.job4j.map;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 public class College {
@@ -11,24 +12,25 @@ public class College {
         this.students = students;
     }
 
-    public Student findByAccount(String account) {
-        return students.keySet()
-                .stream()
-                .filter(s -> s.account().equals(account))
-                .findFirst()
-                .orElse(null);
+    public Optional<Student> findByAccount(String account) {
+        return Optional.of(students.keySet()
+                        .stream()
+                        .filter(s -> s.account().equals(account))
+                        .findFirst())
+                .orElse(Optional.empty()
+                );
     }
 
-    public Subject findBySubjectName(String accountNumber, String name) {
-        var account = findByAccount(accountNumber);
-        if (account == null) {
-            return null;
+    public Optional<Subject> findBySubjectName(String accountNumber, String name) {
+        Optional<Student> account = findByAccount(accountNumber);
+        if (account.isEmpty()) {
+            return Optional.empty();
         }
-        return students.get(account)
+        return account.flatMap(student -> students.get(student)
                 .stream()
                 .filter(s -> s.name().equals(name))
                 .findFirst()
-                .orElse(null);
+        );
     }
 
     public static void main(String[] args) {
@@ -39,9 +41,9 @@ public class College {
                 )
         );
         College college = new College(students);
-        Student student = college.findByAccount("000001");
+        Optional<Student> student = college.findByAccount("000001");
         System.out.println("Найденный студент: " + student);
-        Subject english = college.findBySubjectName("000001", "English");
-        System.out.println("Оценка по найденному предмету: " + english.score());
+        Optional<Subject> english = college.findBySubjectName("000001", "English");
+        english.ifPresent(subject -> System.out.println("Оценка по найденному предмету: " + subject.score()));
     }
 }

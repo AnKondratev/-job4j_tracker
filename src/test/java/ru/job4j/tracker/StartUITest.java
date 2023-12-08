@@ -17,7 +17,7 @@ public class StartUITest {
                 new String[]{"0", "Item name", "1"}
         );
         Tracker tracker = new Tracker();
-        ArrayList<User> actions = new ArrayList<>(Arrays.asList(
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new Create(output),
                 new Exit(output)
         ));
@@ -35,7 +35,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(item.getId()), replacedName, "1"}
         );
-        ArrayList<User> actions = new ArrayList<>(Arrays.asList(
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new Edit(output),
                 new Exit(output)
         ));
@@ -52,7 +52,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(item.getId()), "1"}
         );
-        ArrayList<User> actions = new ArrayList<>(Arrays.asList(
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new Delete(output),
                 new Exit(output)
         ));
@@ -69,7 +69,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(one.getId()), replaceName, "1"}
         );
-        ArrayList<User> actions = new ArrayList<>(Arrays.asList(
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new Edit(out),
                 new Exit(out)
         ));
@@ -97,7 +97,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[]{"0", "1"}
         );
-        ArrayList<User> actions = new ArrayList<>(Arrays.asList(
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new ShowAll(out),
                 new Exit(out)
         ));
@@ -125,7 +125,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[]{"0", "test1", "1"}
         );
-        ArrayList<User> actions = new ArrayList<>(Arrays.asList(
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new FindByName(out),
                 new Exit(out)
         ));
@@ -152,7 +152,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(one.getId()), "1"}
         );
-        ArrayList<User> actions = new ArrayList<>(Arrays.asList(
+        ArrayList<UserAction> actions = new ArrayList<>(Arrays.asList(
                 new FindById(out),
                 new Exit(out)
         ));
@@ -178,7 +178,7 @@ public class StartUITest {
                 new String[]{"12", "0"}
         );
         Tracker tracker = new Tracker();
-        ArrayList<User> actions = new ArrayList<>(List.of(
+        ArrayList<UserAction> actions = new ArrayList<>(List.of(
                 new Exit(out)
         ));
         new StartUI(out).init(in, tracker, actions);
